@@ -1,0 +1,19 @@
+{
+    "name" : "Instagram clone for pwa COP",
+    "short-name" : "InstaClone",
+    "description" : "Solely for PWA enhancement purpose",
+    "orientation" : "portrait-primary",
+    "start-url" : "/index.html",
+    "icons" : [
+        {
+            "src" : "/src/images/icons/app-icon-48x48.png",
+            "type" : "image/png",
+            "sizes" : "48x48"
+        }
+    ],
+    "display": "standalone",
+    "lang": "en-US",
+    "background_color" : "fff",
+    "theme_color" : "#93e5a0",
+    "dir": "ltr"
+}
