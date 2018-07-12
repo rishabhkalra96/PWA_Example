@@ -4,6 +4,20 @@ var closeCreatePostModalButton = document.querySelector('#close-create-post-moda
 
 function openCreatePostModal() {
   createPostArea.style.display = 'block';
+
+  if(df){
+    df.prompt();
+    df.userChoice.then(function(UserResult){
+      console.log(UserResult.outcome);
+      if(UserResult.outcome === 'dismissed'){
+        console.log("dismissed");
+      }
+      else {
+        console.log("accepted");
+      }
+    });
+    df = null;
+  }
 }
 
 function closeCreatePostModal() {
