@@ -15,3 +15,15 @@ window.addEventListener('beforeinstallprompt', function(event){
     df = event;
     return false;
 });
+
+//creating an async task
+
+fetch('https://httpbin.org/ips')
+.then(function(response){
+    console.log("the response is ", response);
+    return response.json();
+}).then(function(responseData){
+    console.log("formatted json data is",responseData);
+}).catch(function(err){
+    console.log(err, "is the error recieved");
+});
