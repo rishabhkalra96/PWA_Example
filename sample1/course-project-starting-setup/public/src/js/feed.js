@@ -6,6 +6,7 @@ function openCreatePostModal() {
   createPostArea.style.display = 'block';
 
   if(df){
+    console.log("deferred even has context");
     df.prompt();
     df.userChoice.then(function(UserResult){
       console.log(UserResult.outcome);
@@ -17,6 +18,7 @@ function openCreatePostModal() {
       }
     });
     df = null;
+    console.log("deferred event now destroyed");
   }
 }
 

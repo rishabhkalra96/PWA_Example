@@ -13,12 +13,13 @@ window.addEventListener('beforeinstallprompt', function(event){
     console.log("just before install prompt fired");
     event.preventDefault();
     df = event;
+    console.log("event deferred and stored");
     return false;
 });
 
 //creating an async task
 
-fetch('https://httpbin.org/ips')
+fetch('https://httpbin.org/ip')
 .then(function(response){
     console.log("the response is ", response);
     return response.json();
