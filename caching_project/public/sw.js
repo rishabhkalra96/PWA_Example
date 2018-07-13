@@ -4,6 +4,9 @@ self.addEventListener('install', function(event) {
     .then(function(opened_cache){
       console.log("cache created/opened");
       opened_cache.add('/src/js/app.js');
+      opened_cache.add('/');
+      opened_cache.add('/index.html');
+      opened_cache.add('/src/css/app.css');
       console.log("app.js added to cache");
     }));
 });
