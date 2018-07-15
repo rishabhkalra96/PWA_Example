@@ -18,6 +18,17 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
+    event.waitUntil(
+        caches.keys()
+            .then(function (keys_list){
+                return Promise.all(keys_list.map(function(key){
+                    if (key !== 'static_cache-v3' && key !== 'dynamic_cache'){
+                        console.log("[Service Worker] deleting cache", key);
+                        return caches.delete(key);
+                    }
+                }));
+            })
+    );
   return self.clients.claim();
 });
 
