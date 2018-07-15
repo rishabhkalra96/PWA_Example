@@ -18,7 +18,6 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-  
   return self.clients.claim();
 });
 
@@ -28,7 +27,16 @@ self.addEventListener('fetch', function(event){
     .then(function(response){
       if(response){
         return response;
-      }else{return fetch(event.request);}
+      }else{
+          return fetch(event.request)
+              .then(function (res){
+                  return caches.open('dynamic_cache')
+                      .then(function (dynamic_opened_cache){
+                          dynamic_opened_cache.put(event.request.url, res.clone());
+                          return res;
+                      })
+              });
+      }
     })
   );
 });
