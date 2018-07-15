@@ -3,11 +3,17 @@ self.addEventListener('install', function(event) {
   event.waitUntil(caches.open('static_cache')
     .then(function(opened_cache){
       console.log("cache created/opened");
-      opened_cache.add('/src/js/app.js');
-      opened_cache.add('/');
-      opened_cache.add('/index.html');
-      opened_cache.add('/src/css/app.css');
-      console.log("app.js added to cache");
+
+
+      CACHED_URLS = [
+          '/src/js/app.js',
+          '/',
+          '/index.html',
+          '/src/css/app.css',
+          '/src/js/material.min.js'
+      ];
+      opened_cache.addAll(CACHED_URLS);
+      console.log("static files added to cache");
     }));
 });
 
