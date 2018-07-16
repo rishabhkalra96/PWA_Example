@@ -1,6 +1,9 @@
+var STATIC_CACHE_NAME = "static_cache_v2";
+var DYNAMIC_CACHE_NAME = "dynamic_cache_v2";
+
 self.addEventListener('install', function(event) {
   console.log('[Service Worker] Installing Service Worker ...', event);
-  event.waitUntil(caches.open('static_cache-v3')
+  event.waitUntil(caches.open(STATIC_CACHE_NAME)
     .then(function(opened_cache){
       console.log("cache created/opened");
 
@@ -22,7 +25,7 @@ self.addEventListener('activate', function(event) {
         caches.keys()
             .then(function (keys_list){
                 return Promise.all(keys_list.map(function(key){
-                    if (key !== 'static_cache-v3' && key !== 'dynamic_cache'){
+                    if (key !==STATIC_CACHE_NAME && key !== DYNAMIC_CACHE_NAME){
                         console.log("[Service Worker] deleting cache", key);
                         return caches.delete(key);
                     }
@@ -41,7 +44,7 @@ self.addEventListener('fetch', function(event){
       }else{
           return fetch(event.request)
               .then(function (res){
-                  return caches.open('dynamic_cache')
+                  return caches.open(DYNAMIC_CACHE_NAME)
                       .then(function (dynamic_opened_cache){
                           dynamic_opened_cache.put(event.request.url, res.clone());
                           return res;
