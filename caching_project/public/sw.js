@@ -40,6 +40,7 @@ self.addEventListener('fetch', function(event){
     caches.match(event.request)
     .then(function(response){
       if(response){
+          console.log("response found for ", response);
         return response;
       }else{
           return fetch(event.request)
