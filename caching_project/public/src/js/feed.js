@@ -22,7 +22,7 @@ function openCreatePostModal() {
   }
 }
 
-function onButtonClicked(event){
+ function onButtonClicked(event){
   console.log("Button clicked");
   if('caches' in window){
     caches.open('user_content_cache')
@@ -30,10 +30,10 @@ function onButtonClicked(event){
     cache.add('https://httpbin.org/get');
     cache.add('/src/images/sf-boat.jpg');
   });
-  }
+  } 
   
 }
-
+ 
 function closeCreatePostModal() {
   createPostArea.style.display = 'none';
 }
@@ -70,8 +70,11 @@ function createCard() {
   sharedMomentsArea.appendChild(cardWrapper);
 }
 
+
+var url = "https://pwa-example-5992b.firebaseio.com/posts.json";
 fetch('https://httpbin.org/get')
   .then(function(res) {
+    
     return res.json();
   })
   .then(function(data) {

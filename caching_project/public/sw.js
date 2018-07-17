@@ -1,5 +1,5 @@
-var STATIC_CACHE_NAME = "static_cache_v2";
-var DYNAMIC_CACHE_NAME = "dynamic_cache_v2";
+var STATIC_CACHE_NAME = "static_cache_v1";
+var DYNAMIC_CACHE_NAME = "dynamic_cache_v1";
 
 self.addEventListener('install', function(event) {
   console.log('[Service Worker] Installing Service Worker ...', event);
@@ -13,7 +13,11 @@ self.addEventListener('install', function(event) {
           '/',
           '/index.html',
           '/src/css/app.css',
-          '/src/js/material.min.js'
+          '/src/js/material.min.js',
+          '/src/js/fetch.js',
+          '/src/js/feed.js',
+          '/src/js/promise.js',
+          '/src/css/feed.css'
       ];
       opened_cache.addAll(CACHED_URLS);
       console.log("static files added to cache");
@@ -47,7 +51,7 @@ self.addEventListener('fetch', function(event){
               .then(function (res){
                   return caches.open(DYNAMIC_CACHE_NAME)
                       .then(function (dynamic_opened_cache){
-                          dynamic_opened_cache.put(event.request.url, res.clone());
+                          //dynamic_opened_cache.put(event.request.url, res.clone());
                           return res;
                       })
               });
