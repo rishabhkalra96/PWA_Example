@@ -17,7 +17,9 @@ self.addEventListener('install', function(event) {
           '/src/js/fetch.js',
           '/src/js/feed.js',
           '/src/js/promise.js',
-          '/src/css/feed.css'
+          '/src/css/feed.css',
+          'offline.html',
+          'src/css/offline.css'
       ];
       opened_cache.addAll(CACHED_URLS);
       console.log("static files added to cache");
@@ -51,9 +53,14 @@ self.addEventListener('fetch', function(event){
               .then(function (res){
                   return caches.open(DYNAMIC_CACHE_NAME)
                       .then(function (dynamic_opened_cache){
-                          //dynamic_opened_cache.put(event.request.url, res.clone());
+                          dynamic_opened_cache.put(event.request.url, res.clone());
                           return res;
                       })
+              }).catch(function (err){
+                  return caches.open(STATIC_CACHE_NAME)
+                  .then(function(cache){
+                        return cache.match('/offline.html');
+                  });
               });
       }
     })

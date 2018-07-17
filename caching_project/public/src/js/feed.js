@@ -21,11 +21,11 @@ function openCreatePostModal() {
     deferredPrompt = null;
   }
 }
-
+/* 
  function onButtonClicked(event){
   console.log("Button clicked");
   if('caches' in window){
-    caches.open('user_content_cache')
+    caches.open('user_requestedContent_cache')
   .then(function(cache){
     cache.add('https://httpbin.org/get');
     cache.add('/src/images/sf-boat.jpg');
@@ -33,7 +33,7 @@ function openCreatePostModal() {
   } 
   
 }
- 
+  */
 function closeCreatePostModal() {
   createPostArea.style.display = 'none';
 }
@@ -59,11 +59,11 @@ function createCard() {
   var cardSupportingText = document.createElement('div');
   cardSupportingText.className = 'mdl-card__supporting-text';
   cardSupportingText.textContent = 'In San Francisco';
-
+/* 
   var cardSaveButton = document.createElement('button');
   cardSupportingText.appendChild(cardSaveButton);
   cardSaveButton.textContent = 'Save Post';
-  cardSaveButton.addEventListener('click', onButtonClicked);
+  cardSaveButton.addEventListener('click', onButtonClicked); */
   cardSupportingText.style.textAlign = 'center';
   cardWrapper.appendChild(cardSupportingText);
   componentHandler.upgradeElement(cardWrapper);
