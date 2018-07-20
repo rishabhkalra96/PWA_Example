@@ -27,6 +27,15 @@ function readAllData(store_name){
     //transaction for the reading data fails, it won't effect the
     //data stored. Hence, no tx.complete here
 
-    }
-  );
+    });
+}
+
+function clearAllStorage(store_name){
+  return idb_promise
+  .then(function(db){
+    var tx = db.transaction(store_name, 'readwrite');
+    var store = tx.objectStore(store_name);
+    store.clear();
+    return tx.complete;
+  });
 }
