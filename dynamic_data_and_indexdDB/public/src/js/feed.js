@@ -124,7 +124,7 @@ fetch(url)
        }
      });
    }
-
+   
 // if ('caches' in window) {
 //   caches.match(url)
 //     .then(function(response) {
