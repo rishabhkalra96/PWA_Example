@@ -88,9 +88,13 @@ var url = 'https://pwa-example-5992b.firebaseio.com/posts.json';
 var networkDataReceived = false;
 
 function updateUI(data){
+  console.log("updating ui");
   clearCards();
-  for(var i = 0 ; i , data.length ; i++){
+    console.log(data[0] + "and  " + data[1]);
+  for(var i = 0 ; i < data.length ; i++){
+    console.log("data object "+ data[i]);
     createCard(data[i]);
+    console.log("card"+ i + "created");
   }
 }
 
@@ -104,26 +108,38 @@ fetch(url)
     var dataArray = [];
 
     for(key in data){
+      console.log("entering "+ data[key] + "to dataArray");
       dataArray.push(data[key]);
     }
     updateUI(dataArray);
   });
 
-if ('caches' in window) {
-  caches.match(url)
-    .then(function(response) {
-      if (response) {
-        return response.json();
-      }
-    })
-    .then(function(data) {
-      console.log('From cache', data);
-      if (!networkDataReceived) {
-       var dataArray = [];
-       for(key in data){
-         dataArray.push(data[key]);
+   if('indexedDB' in window){
+     readAllData('posts')
+     .then(function(data_recieved){
+       console.log("reading from indexDB");
+       if(!networkDataReceived){
+         console.log("unable to connect to network, fetching from cache");
+         updateUI(data_recieved);
        }
-       updateUI(dataArray);
-      }
-    });
-}
+     });
+   }
+
+// if ('caches' in window) {
+//   caches.match(url)
+//     .then(function(response) {
+//       if (response) {
+//         return response.json();
+//       }
+//     })
+//     .then(function(data) {
+//       console.log('From cache', data);
+//       if (!networkDataReceived) {
+//        var dataArray = [];
+//        for(key in data){
+//          dataArray.push(data[key]);
+//        }
+//        updateUI(dataArray);
+//       }
+//     });
+// }
