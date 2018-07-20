@@ -106,7 +106,7 @@ fetch(url)
     for(key in data){
       dataArray.push(data[key]);
     }
-    updateUI(dataArray)
+    updateUI(dataArray);
   });
 
 if ('caches' in window) {
