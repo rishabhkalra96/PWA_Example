@@ -151,6 +151,27 @@ form.addEventListener('submit', function(triggered_event){
   }
 });
 
+function sendData() {
+    console.log("sendData triggered");
+    fetch('https://pwa-example-5992b.firebaseio.com/posts.json', {
+        method : 'POST',
+        headers : {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            id : new Date().toISOString(),
+            image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBc795nvnl4SoMWOKDJ2fBb4uGF8LW63H4gjxHidCNciDBaigP',
+            location : locationInput.value,
+            title : titleInput.value
+        })
+    })
+        .then(function(res){
+            console.log("data sent" ,res);
+            updateUI();
+        });
+}
+
 //implementing sync manager
 if('serviceWorker' in navigator && 'SyncManager' in window){
   navigator.serviceWorker.ready
@@ -179,6 +200,7 @@ if('serviceWorker' in navigator && 'SyncManager' in window){
 }
 else {
   console.log("sync manager is not compatible");
+  sendData();
 }
 // if ('caches' in window) {
 //   caches.match(url)
