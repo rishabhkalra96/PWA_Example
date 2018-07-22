@@ -1,7 +1,14 @@
 var idb_promise = idb.open('post-store',1, function(db_object){
   if(!db_object.objectStoreNames.contains('posts')){
     db_object.createObjectStore('posts',{keyPath: 'id'});
+    console.log("posts indexedDB created");
   }
+  else{console.log("posts indexedDB store already present");}
+  if(!db_object.objectStoreNames.contains('sync-posts')){
+    db_object.createObjectStore('sync-posts', {keyPath: 'id'});
+    console.log("sync-posts indexedDB created");
+  }
+  else{console.log("sync-posts indexedDB store already present");}
 });
 
 function writeData(store_name, data){

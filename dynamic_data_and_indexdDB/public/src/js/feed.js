@@ -150,6 +150,36 @@ form.addEventListener('submit', function(triggered_event){
     alert("one field is empty");
   }
 });
+
+//implementing sync manager
+if('serviceWorker' in navigator && 'SyncManager' in window){
+  navigator.serviceWorker.ready
+      .then(function(sw){
+          var post = {
+              id : new Date().toISOString(),
+              title : titleInput.value,
+              location : locationInput.value
+          };
+          writeData('sync-posts', post)
+              .then(function(){
+                  return sw.sync.register('sync-new-post');
+              })
+              .then(function() {
+                  //showing a snackbar on successfull database storage and syncing of post
+                  var snackBarContainer = document.querySelector('#confirmation-toast');
+                  var data = {message: 'Your post is saved for syncing later!'};
+                  snackBarContainer.MaterialSnackbar.showSnackbar(data);
+              })
+              .catch(function(err){
+                console.log("some error catched "+ err);
+              });
+      });
+
+  console.log("sync manager is compatible");
+}
+else {
+  console.log("sync manager is not compatible");
+}
 // if ('caches' in window) {
 //   caches.match(url)
 //     .then(function(response) {
